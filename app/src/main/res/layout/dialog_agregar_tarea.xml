@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Título de la tarea"/>
+
+    <EditText
+        android:id="@+id/etDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Descripción de la tarea"/>
+
+    <Button
+        android:id="@+id/btnSeleccionarFecha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Fecha"/>
+
+    <TextView
+        android:id="@+id/tvFechaSeleccionada"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fecha: No seleccionada"
+        android:textStyle="bold"
+        android:padding="8dp"/>
+
+    <Button
+        android:id="@+id/btnSeleccionarImagen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccionar Imagen"/>
+
+    <ImageView
+        android:id="@+id/ivImagenSeleccionada"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar Tarea"/>
+
+</LinearLayout>
