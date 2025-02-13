@@ -97,15 +97,13 @@ public class DialogAgregarTarea extends DialogFragment {
 
         String imagenPath = (imagenUri != null) ? imagenUri.toString() : "DEFAULT_IMAGE";
 
-        // 🔹 Obtener el email del usuario autenticado
         FirebaseUser usuarioActual = FirebaseAuth.getInstance().getCurrentUser();
         if (usuarioActual == null) {
             Toast.makeText(getContext(), "Error: Usuario no autenticado", Toast.LENGTH_SHORT).show();
             return;
         }
-        String usuarioEmail = usuarioActual.getEmail(); // ⚠️ Ahora se guarda el EMAIL en lugar del UID
+        String usuarioEmail = usuarioActual.getEmail();
 
-        // 🔹 Crear la tarea con el EMAIL del usuario
         Tarea nuevaTarea = new Tarea(titulo, descripcion, fechaSeleccionada, imagenPath, false, usuarioEmail);
         tareaViewModel.insertar(nuevaTarea);
 

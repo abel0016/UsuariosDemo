@@ -17,7 +17,7 @@ public class TareasRepositorio {
         TareaDatabase db = TareaDatabase.getInstance(application);
         tareaDao = db.tareaDao();
         todasLasTareas = tareaDao.obtenerTodas();
-        executorService = Executors.newSingleThreadExecutor(); // INICIALIZACIÓN CORRECTA
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     public LiveData<List<Tarea>> obtenerTodas() {

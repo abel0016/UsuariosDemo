@@ -39,7 +39,6 @@ public class FragmentBusqueda extends Fragment {
 
         searchView = view.findViewById(R.id.searchView);
 
-        // 🔹 Obtener usuario autenticado en Firebase
         FirebaseUser usuarioActual = FirebaseAuth.getInstance().getCurrentUser();
         usuarioId = (usuarioActual != null) ? usuarioActual.getUid() : "";
 
@@ -48,7 +47,6 @@ public class FragmentBusqueda extends Fragment {
 
         tareaViewModel = new ViewModelProvider(requireActivity()).get(TareaViewModel.class);
 
-        // 🔹 Observar los cambios en la base de datos y guardar las tareas en una lista
         tareaViewModel.obtenerTodas().observe(getViewLifecycleOwner(), tareas -> {
             if (tareas != null) {
                 listaTareas.clear();
@@ -57,7 +55,6 @@ public class FragmentBusqueda extends Fragment {
             }
         });
 
-        // 🔹 Configurar el SearchView para filtrar las tareas
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

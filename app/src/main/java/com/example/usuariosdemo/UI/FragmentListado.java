@@ -27,14 +27,14 @@ public class FragmentListado extends Fragment {
     private FloatingActionButton fabAgregar;
     private boolean mostrarCompletadas;
     private SharedPreferences sharedPreferences;
-    private String usuarioEmail; // 🔹 Ahora comparamos con el email del usuario autenticado
+    private String usuarioEmail;
 
     public FragmentListado() {}
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true); // Activa el menú superior
+        setHasOptionsMenu(true);
 
         sharedPreferences = requireActivity().getSharedPreferences("config", requireActivity().MODE_PRIVATE);
         mostrarCompletadas = sharedPreferences.getBoolean("mostrarCompletadas", false);
@@ -49,7 +49,6 @@ public class FragmentListado extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         recyclerView.setHasFixedSize(true);
 
-        // 🔹 Obtener email del usuario autenticado en Firebase
         FirebaseUser usuarioActual = FirebaseAuth.getInstance().getCurrentUser();
         usuarioEmail = (usuarioActual != null) ? usuarioActual.getEmail() : "";
 
@@ -58,7 +57,6 @@ public class FragmentListado extends Fragment {
 
         tareaViewModel = new ViewModelProvider(requireActivity()).get(TareaViewModel.class);
 
-        // Observar cambios en la base de datos
         tareaViewModel.obtenerTodas().observe(getViewLifecycleOwner(), this::actualizarLista);
 
         fabAgregar.setOnClickListener(v -> {
@@ -66,7 +64,6 @@ public class FragmentListado extends Fragment {
             dialog.show(getParentFragmentManager(), "DialogAgregarTarea");
         });
 
-        // Swipe para completar/eliminar tarea
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -82,7 +79,7 @@ public class FragmentListado extends Fragment {
 
                 boolean esPropietario = tareaSeleccionada.getUsuarioEmail().equals(usuarioEmail);
 
-                if (direction == ItemTouchHelper.RIGHT) { // Marcar como completada
+                if (direction == ItemTouchHelper.RIGHT) {
                     if (esPropietario) {
                         new AlertDialog.Builder(requireContext())
                                 .setTitle("Completar Tarea")
@@ -98,7 +95,7 @@ public class FragmentListado extends Fragment {
                         Toast.makeText(requireContext(), "No puedes modificar esta tarea", Toast.LENGTH_SHORT).show();
                         adapter.notifyItemChanged(position);
                     }
-                } else if (direction == ItemTouchHelper.LEFT) { // Eliminar tarea
+                } else if (direction == ItemTouchHelper.LEFT) {
                     if (esPropietario) {
                         new AlertDialog.Builder(requireContext())
                                 .setTitle("Eliminar Tarea")
@@ -117,7 +114,6 @@ public class FragmentListado extends Fragment {
             }
         }).attachToRecyclerView(recyclerView);
 
-        // Clic en tarea para abrir detalles
         adapter.setOnItemClickListener(this::abrirDetalleTarea);
 
         return view;
@@ -137,7 +133,7 @@ public class FragmentListado extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        menu.clear(); // Evitar duplicados
+        menu.clear();
         inflater.inflate(R.menu.menu_main, menu);
         MenuItem item = menu.findItem(R.id.menu_toggle_completadas);
         item.setChecked(mostrarCompletadas);

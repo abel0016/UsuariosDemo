@@ -21,7 +21,7 @@ public abstract class TareaDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                                     TareaDatabase.class, "tarea_database")
-                            .addMigrations(MIGRACION_2_3) // AGREGAMOS LA MIGRACIÓN
+                            .addMigrations(MIGRACION_2_3)
                             .build();
                 }
             }

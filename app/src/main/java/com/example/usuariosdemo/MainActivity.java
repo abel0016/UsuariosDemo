@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // 🔹 Configurar Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser usuarioActual = mAuth.getCurrentUser();
 
@@ -52,10 +51,8 @@ public class MainActivity extends AppCompatActivity {
             usuarioEmail = usuarioActual.getEmail();
         }
 
-        // 🔹 Configurar Toolbar
         setSupportActionBar(binding.toolbar);
 
-        // 🔹 Configurar BottomNavigationView
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment fragment = null;
 
@@ -74,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // 🔹 Cargar `FragmentListado` al iniciar sesión
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
@@ -82,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
 
-        // 🔹 Botón para agregar tarea
         binding.fabAgregar.setOnClickListener(v -> {
             DialogAgregarTarea dialog = new DialogAgregarTarea();
             dialog.show(getSupportFragmentManager(), "DialogAgregarTarea");

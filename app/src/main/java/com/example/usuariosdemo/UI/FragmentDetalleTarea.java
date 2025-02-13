@@ -72,7 +72,6 @@ public class FragmentDetalleTarea extends Fragment {
                 tvDescripcion.setText(tarea.getDescripcion());
                 tvFecha.setText(tarea.getFecha());
 
-                // 🔹 Solo permitir cambiar la imagen si el usuario es el creador
                 if (!tarea.getUsuarioEmail().equals(usuarioActualId)) {
                     btnCambiarImagen.setVisibility(View.GONE);
                 }

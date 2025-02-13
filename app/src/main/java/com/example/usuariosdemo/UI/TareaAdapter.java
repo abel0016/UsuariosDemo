@@ -28,7 +28,6 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.TareaViewHol
     private String usuarioEmail;
     private OnItemClickListener listener;
 
-    // Interfaz para manejar clics en tareas
     public interface OnItemClickListener {
         void onItemClick(Tarea tarea);
     }
@@ -65,10 +64,8 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.TareaViewHol
         holder.tvTitulo.setText(tarea.getTitulo());
         holder.tvFecha.setText(tarea.getFecha());
 
-        // 🔹 **Mostrar el email guardado directamente desde Room**
         holder.tvUsuario.setText("Creado por: " + tarea.getUsuarioEmail());
 
-        // 🔹 **Cambiar color según la fecha**
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
             Date fechaTarea = sdf.parse(tarea.getFecha());
@@ -78,11 +75,11 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.TareaViewHol
             long diasRestantes = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 
             if (diasRestantes < 0) {
-                holder.tvTitulo.setTextColor(Color.RED); // 🔴 Vencido
+                holder.tvTitulo.setTextColor(Color.RED);
             } else if (diasRestantes <= 2) {
-                holder.tvTitulo.setTextColor(Color.parseColor("#FFA500")); // 🟠 A punto de vencer
+                holder.tvTitulo.setTextColor(Color.parseColor("#FFA500"));
             } else {
-                holder.tvTitulo.setTextColor(Color.GREEN); // 🟢 Seguro
+                holder.tvTitulo.setTextColor(Color.GREEN);
             }
 
         } catch (ParseException e) {
@@ -90,7 +87,6 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.TareaViewHol
             e.printStackTrace();
         }
 
-        // 🔹 **Detectar clic en una tarea para abrir detalle**
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(tarea);
